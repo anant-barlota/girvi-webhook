@@ -9,10 +9,10 @@ import (
 	modelv1 "github.com/anant-barlota/girvi-plugins/sdk/gen/girvi/model/v1"
 )
 
-// The JSON below is this extension's public contract with whatever receives it.
+// The JSON below is this plugin's public contract with whatever receives it.
 // It is written out as plain structs, not generated from the protobuf, so that
 // numbers stay numbers (protobuf's JSON turns 64-bit integers into strings) and
-// so that the shape only changes when this extension says it does. Adding a field
+// so that the shape only changes when this plugin says it does. Adding a field
 // is compatible. Removing or renaming one bumps "version".
 const payloadVersion = 1
 
@@ -189,7 +189,7 @@ func build(item *deliveryv1.Item, firmName string, includeDetails bool) (envelop
 			RedeemedOn: toDate(e.GetRedeemedOn()), ReturnedWeight: toWeight(e.GetReturnedWeight()),
 		}
 	default:
-		return envelope{}, fmt.Errorf("this extension sends loan events only, not %q", item.GetCapability())
+		return envelope{}, fmt.Errorf("this plugin sends loan events only, not %q", item.GetCapability())
 	}
 	return env, nil
 }

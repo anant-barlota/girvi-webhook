@@ -129,7 +129,7 @@ func safeURL(u *url.URL) string {
 func (w *webhook) Handle(ctx context.Context, item *deliveryv1.Item) (sdk.Result, error) {
 	values, firmName, enabled := w.firm(item.GetFirmId())
 	if !enabled {
-		return sdk.Result{}, sdk.Permanent(deliveryv1.ErrorClass_ERROR_CLASS_CONFIG, "this extension is not turned on for the firm")
+		return sdk.Result{}, sdk.Permanent(deliveryv1.ErrorClass_ERROR_CLASS_CONFIG, "this plugin is not turned on for the firm")
 	}
 	u, err := target(values)
 	if err != nil {

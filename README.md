@@ -1,17 +1,17 @@
 # Girvi Webhook
 
-A [Girvi](https://girvi.app/) extension that posts loan events to a URL you choose:
+A [Girvi](https://girvi.app/) plugin that posts loan events to a URL you choose:
 
 - `loan.created`: a new loan was recorded
 - `payment.received`: a payment was recorded that leaves principal owing
 - `loan.redeemed`: a loan was paid off
 
 It is a building block. Google Sheets, Zapier, Make, Slack alerts and accounting bridges can all start from a
-webhook. Each firm has its own URL, and nothing is posted until you turn the extension on for that firm.
+webhook. Each firm has its own URL, and nothing is posted until you turn the plugin on for that firm.
 
 ## Install
 
-Build it and copy it into Girvi's extensions folder (**Extensions, Build your own** shows where it is).
+Build it and copy it into Girvi's plugins folder (**Plugins, Build your own** shows where it is).
 
 ```bash
 go build -o girvi-plugin-webhook .
@@ -19,9 +19,9 @@ go build -o girvi-plugin-webhook .
 GOOS=windows GOARCH=amd64 go build -o girvi-plugin-webhook.exe .
 ```
 
-Today Girvi only picks up files whose name starts with `girvi-plugin-`. In **Extensions**, press **Scan folder**,
-review the new extension and approve it. Approval is for that exact build. Then open **Settings**, enter the URL,
-and turn the extension on for a firm.
+Today Girvi only picks up files whose name starts with `girvi-plugin-`. In **Plugins**, press **Scan folder**,
+review the new plugin and approve it. Approval is for that exact build. Then open **Settings**, enter the URL,
+and turn the plugin on for a firm.
 
 ## Settings
 
@@ -42,7 +42,7 @@ go run ./examples/receiver -addr :9090 -secret s3cret
 # Signing secret: s3cret
 ```
 
-Then press **Send test event** on the extension in Girvi. It posts a loan with made-up details (customer
+Then press **Send test event** on the plugin in Girvi. It posts a loan with made-up details (customer
 "Test Customer", loan `TEST-001`), so no real customer is involved, and the result shows in **Activity**.
 
 ## What is posted
