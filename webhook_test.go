@@ -338,7 +338,7 @@ func TestAFirmThatIsOffIsNeverPostedFor(t *testing.T) {
 		t.Errorf("= %v; want permanent", err)
 	}
 	if r.method != "" {
-		t.Error("nothing may be posted for a firm the extension is off for")
+		t.Error("nothing may be posted for a firm the plugin is off for")
 	}
 }
 

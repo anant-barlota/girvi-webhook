@@ -2,7 +2,10 @@ module github.com/anant-barlota/girvi-webhook
 
 go 1.25.0
 
-require github.com/anant-barlota/girvi-plugins v0.1.0-alpha.6
+require (
+	github.com/anant-barlota/girvi-plugins v0.1.0-alpha.7
+	google.golang.org/protobuf v1.36.11
+)
 
 require (
 	github.com/dustin/go-humanize v1.0.1 // indirect
@@ -24,7 +27,6 @@ require (
 	golang.org/x/text v0.40.0 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20260706201446-f0a921348800 // indirect
 	google.golang.org/grpc v1.84.0 // indirect
-	google.golang.org/protobuf v1.36.11 // indirect
 	modernc.org/gc/v3 v3.0.0-20240107210532-573471604cb6 // indirect
 	modernc.org/libc v1.55.3 // indirect
 	modernc.org/mathutil v1.6.0 // indirect

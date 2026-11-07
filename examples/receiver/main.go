@@ -1,5 +1,5 @@
 // Command receiver is a small webhook receiver for trying the Girvi webhook
-// extension. It checks the signature and the age of each post the way a real
+// plugin. It checks the signature and the age of each post the way a real
 // receiver should, prints what arrived, and answers 200.
 //
 //	go run ./examples/receiver -addr :9090 -secret s3cret
