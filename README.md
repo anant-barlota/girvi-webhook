@@ -11,7 +11,10 @@ webhook. Each firm has its own URL, and nothing is posted until you turn the plu
 
 ## Install
 
-Build it and copy it into Girvi's plugins folder (**Plugins, Build your own** shows where it is).
+**From Girvi:** open **Plugins**, choose **Browse**, and press **Install** on Webhook. Approve it when it appears
+under **Installed**. Or download a program from the [releases](https://github.com/anant-barlota/girvi-webhook/releases).
+
+**Build it yourself:** build it and copy it into Girvi's plugins folder (**Plugins, Build your own** shows where it is).
 
 ```bash
 go build -o girvi-plugin-webhook .
