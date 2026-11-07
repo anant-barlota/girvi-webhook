@@ -135,3 +135,7 @@ An event that cannot be delivered within 7 days expires.
 
 With "Include customer names and phone numbers" on, each post carries the customer's name and phone number, so
 send it only to a receiver you trust and keep to `https`. Turn it off to send customer IDs only.
+
+## License
+
+MIT. See [LICENSE](LICENSE).
