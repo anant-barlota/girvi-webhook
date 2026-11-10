@@ -13,6 +13,6 @@ jobs:
   release:
     permissions:
       contents: write
-    uses: anant-barlota/girvi-plugins/.github/workflows/release-plugin.yml@v0.1.0-alpha.8
+    uses: anant-barlota/girvi-plugins/.github/workflows/release-plugin.yml@176f4b3313fdd521db3cd349daf954a11a89aa2a # v0.1.0-alpha.9
     with:
       name: webhook

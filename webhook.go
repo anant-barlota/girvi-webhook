@@ -25,7 +25,7 @@ import (
 	deliveryv1 "github.com/anant-barlota/girvi-plugins/sdk/gen/girvi/delivery/v1"
 )
 
-const version = "0.1.0"
+const version = "0.1.1"
 
 type webhook struct {
 	client *http.Client
@@ -169,7 +169,30 @@ func (w *webhook) Handle(ctx context.Context, item *deliveryv1.Item) (sdk.Result
 	defer resp.Body.Close()
 	snippet, _ := io.ReadAll(io.LimitReader(resp.Body, 512))
 
-	return classify(resp.StatusCode, u, snippet)
+	// What the receiver says is shown to the user and stored, so it must not be able to
+	// hand back the credentials it was sent.
+	return classify(resp.StatusCode, u, scrub(snippet, values["signing_secret"], values["auth_header"]))
+}
+
+// scrub hides anything this plugin was given as a secret from text that came back
+// from the receiver. For an authorization header such as "Bearer abc123" the credential
+// after the scheme is hidden too, because a receiver may echo only that part. Values
+// shorter than four characters are left alone: hiding them would mangle ordinary text.
+func scrub(text []byte, secrets ...string) []byte {
+	out := string(text)
+	for _, secret := range secrets {
+		secret = strings.TrimSpace(secret)
+		parts := []string{secret}
+		if _, credential, found := strings.Cut(secret, " "); found {
+			parts = append(parts, strings.TrimSpace(credential))
+		}
+		for _, p := range parts {
+			if len(p) >= 4 {
+				out = strings.ReplaceAll(out, p, "[hidden]")
+			}
+		}
+	}
+	return []byte(out)
 }
 
 // sign is the signature of one post: HMAC-SHA256, keyed with the secret, over the
