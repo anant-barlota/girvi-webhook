@@ -407,3 +407,31 @@ func TestARefusalPointsAtBothCredentials(t *testing.T) {
 		}
 	}
 }
+
+// A receiver that echoes the credentials it was sent must not get them stored and shown.
+func TestAReceiverCannotHandCredentialsBack(t *testing.T) {
+	r := newReceiver(t)
+	r.status, r.reply = 401, "Invalid token: Bearer abc12345XYZ for secret s3cretvalue99 (also abc12345XYZ)"
+	w := configured(t, r, map[string]string{"signing_secret": "s3cretvalue99", "auth_header": "Bearer abc12345XYZ"})
+	_, err := w.Handle(context.Background(), loanCreatedItem())
+	if err == nil {
+		t.Fatal("a 401 must be an error")
+	}
+	for _, leaked := range []string{"abc12345XYZ", "s3cretvalue99"} {
+		if strings.Contains(err.Error(), leaked) {
+			t.Errorf("%q was echoed back into the message: %v", leaked, err)
+		}
+	}
+	if !strings.Contains(err.Error(), "[hidden]") || !strings.Contains(err.Error(), "HTTP 401") {
+		t.Errorf("the message should still say what happened: %v", err)
+	}
+}
+
+func TestScrubLeavesOrdinaryTextAndShortValuesAlone(t *testing.T) {
+	if got := string(scrub([]byte("bad request: field a is missing"), "a", "")); got != "bad request: field a is missing" {
+		t.Errorf("a short or empty secret must not mangle text: %q", got)
+	}
+	if got := string(scrub([]byte("token=tok_live_123"), "Bearer tok_live_123")); got != "token=[hidden]" {
+		t.Errorf("the credential after the scheme is hidden: %q", got)
+	}
+}

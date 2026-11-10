@@ -134,6 +134,11 @@ Delivery is at least once. Use `id` (or `X-Girvi-Delivery`) to ignore a repeat. 
 Redirects are not followed, because a redirected `POST` would lose its body. Enter the final address.
 An event that cannot be delivered within 7 days expires.
 
+## What is shown when something goes wrong
+
+If the receiver answers with an error, a short part of what it said is shown in **Activity** to help you fix it. Your
+signing secret and authorization header are hidden from that text, in case the receiver echoes them back.
+
 ## Privacy
 
 With "Include customer names and phone numbers" on, each post carries the customer's name and phone number, so
