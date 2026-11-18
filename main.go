@@ -1,11 +1,12 @@
-// Command girvi-webhook is a Girvi plugin that posts loan events to a URL you
-// choose: when a loan is created, a payment is received, or a loan is redeemed.
-// It is the kind of building block that Google Sheets, Zapier, Make, Slack and
-// accounting bridges are started from.
+//go:build wasip1
+
+// The exports Girvi calls. Everything else is in handler.go, which has no
+// WebAssembly in it, so it is tested with plain go test.
 package main
 
-import "github.com/anant-barlota/girvi-plugins/sdk"
+import "github.com/anant-barlota/girvi-sdk/plugin"
 
-func main() {
-	sdk.Run(newWebhook())
-}
+//go:wasmexport on_event
+func onEvent() { plugin.Run(handle) }
+
+func main() {}

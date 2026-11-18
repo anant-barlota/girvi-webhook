@@ -1,5 +1,5 @@
-# Publishes the plugin for Windows, macOS and Linux when a version tag such as
-# v0.1.0 is pushed. The tag must equal the version the plugin reports (webhook.go).
+# Push a tag such as v0.1.0, equal to "version" in plugin.json, to build the
+# bundle and publish it with its SHA-256 as a GitHub Release.
 name: Release
 
 on:
@@ -13,6 +13,4 @@ jobs:
   release:
     permissions:
       contents: write
-    uses: anant-barlota/girvi-plugins/.github/workflows/release-plugin.yml@176f4b3313fdd521db3cd349daf954a11a89aa2a # v0.1.0-alpha.9
-    with:
-      name: webhook
+    uses: anant-barlota/girvi-sdk/.github/workflows/release-plugin.yml@44f7143625975deaf01480943e7a0bc37469b57a # v0.0.2
